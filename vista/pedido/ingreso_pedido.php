@@ -11,7 +11,7 @@
 <body>
     <div class="contenedor">
         <center>
-            <form id="ingreso" action"#">
+            <form id="ingreso_pedido" action"#">
                 
                 <div class="datos">
                      <center><h2>INGRESE UN PEDIDO </h2></center>
@@ -20,6 +20,7 @@
                         <div class="dato">
                             <label for="dato">Mesa:</label>
                             <select class="basic-slide" id="Mesa">
+                            <option value="">Seleccionar</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -35,30 +36,33 @@
                             
                         </div><br>
 
-                        <div>
-                            <label for="dato">Tipo de orden</label>
-                            <select id="tipo_platillo" class="basic-slide">
-                                <option value="">Seleccionar </option>
-                                <option value="Bebida">Bebida </option>
-                                <option value="Guarnicion">Guarnicion</option>
-                                <option valie="Plato fuerte">Plato Fuerte</option>
-                                <option value="Postre">Postre</option>
-                            </select>
-                        </div><br>
+                       
                            
                         <div>
                             <label for="dato">Orden</label>
                             <select id="Orden" class="basic-slide">
-                                
+                            
+                            <?php 
+                            
+                            include("../../controlador/base.php");
+                             
+                            $consulta= "SELECT * from platillo ";
+                            $ejecutar = mysqli_query($conn,$consulta) or die(mysqli_error($conn));
+
+                            ?>
+                            <option value="">Seleccionar</option>
+                            <?php foreach($ejecutar as $opciones):?>
+                            <option value="<?php echo $opciones['NOM_PLATILLO']?>"><?php echo $opciones['NOM_PLATILLO']?></option>        
+                            <?php endforeach ?>
                             </select>
                         </div><br>
 
                         <div>
-                            <label for="dato"> Precio $</label>
+                            <label for="dato"> Observacion</label>
     
-                                
-                                <input id="precio" class= "basic-slide"type="number" min="0.00" max="10000.00" step="0.01" />
-                              
+                                <br>
+                                <br>
+                              <textarea id="observaiones" class= "basic-slide" type="text"  maxlength="250"></textarea>
                         </div>
 
                      </center>
@@ -70,8 +74,8 @@
                     <div class="enviar">
                             <input type="hidden" id="Accion" value="crear" >
                             <input class="boton" type="submit" id="botonEnviar" value="Agregar" > 
-                            <script type="text/javascript" src="../../modelo/menu/app_menu.js"> <a href="ingreso_menu.html"></a></script>
-                            <a href="../menu/ingreso_menu.html"></a>                          
+                            <script type="text/javascript" src="../../modelo/pedido/app_pedido.js"> <a href="ingreso_pedido.php"></a></script>
+                            <a href="../menu/ingreso_pedido.html"></a>                          
                     </div>
                     <br>
                 </center>    
